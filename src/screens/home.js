@@ -2,8 +2,8 @@ import React from 'react'
 import { FlatList, StyleSheet, View, Text } from 'react-native'
 import CustomButton from '../components/customButton'
 
-// Tambahkan "setCurrentPage" sebagai sebuah prop
-const NoteCard = ({ item, setCurrentPage, deleteNote }) => (
+// Tambahkan "setCurrentNote" sebagai sebuah prop
+const NoteCard = ({ item, setCurrentPage, deleteNote, setCurrentNote }) => (
   <View style={styles.card}>
     <Text style={styles.cardTitle}>{item.title}</Text>
     <Text>{item.desc}</Text>
@@ -17,6 +17,7 @@ const NoteCard = ({ item, setCurrentPage, deleteNote }) => (
         // Tuliskan layar "edit" untuk ketika tombol-nya ditekan
         onPress={() => {
           setCurrentPage('edit')
+          setCurrentNote(item) // Mendapatkan data note yang dipilih
         }}
       />
       <CustomButton
@@ -37,7 +38,8 @@ const NoteCard = ({ item, setCurrentPage, deleteNote }) => (
 const Home = ({ 
   noteList, 
   setCurrentPage, 
-  deleteNote 
+  deleteNote,
+  setCurrentNote, 
 }) => (
   <View style={styles.container}>
     <CustomButton
@@ -59,6 +61,7 @@ const Home = ({
           item={item} 
           setCurrentPage={setCurrentPage} 
           deleteNote={deleteNote}
+          setCurrentNote={setCurrentNote}
         />
       )}
       keyExtractor={(item) => item.id}
