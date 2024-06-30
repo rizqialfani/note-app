@@ -10,8 +10,8 @@ const CurrentPageWidget = ({
   setCurrentPage,
   addNote,
   deleteNote,
-  noteById,
-  setNoteById,
+  currentNote,
+  setCurrentNote,
   editNote,
 }) => {
   switch (currentPage) {
@@ -21,7 +21,7 @@ const CurrentPageWidget = ({
           noteList={noteList}
           setCurrentPage={setCurrentPage}
           deleteNote={deleteNote}
-          setNoteById={setNoteById}
+          setCurrentNote={setCurrentNote}
         />
       );
     case 'add':
@@ -31,7 +31,7 @@ const CurrentPageWidget = ({
       return (
         <EditNote 
           setCurrentPage={setCurrentPage}
-          noteById={noteById}
+          currentNote={currentNote}
           editNote={editNote}
         />
     );
@@ -53,7 +53,7 @@ const App = () => {
     },
   ])
 
-  const [noteById, setNoteById] = useState(null);
+  const [currentNote, setCurrentNote] = useState(null);
 
   const addNote = (title, desc) => {
     const id = noteList.length > 0 ? noteList[noteList.length - 1].id + 1 : 1;
@@ -67,8 +67,8 @@ const App = () => {
     ]);
   };
 
-  const deleteNote = (noteId) => {
-    const updatedNote = noteList.filter((note) => note.id !== noteId);
+  const deleteNote = (setCurrentNote) => {
+    const updatedNote = noteList.filter((note) => note.id !== setCurrentNote);
     setNoteList(updatedNote);
   };
 
@@ -81,7 +81,7 @@ const App = () => {
     });
 
     setNoteList(updatedNote);
-    setNoteById(null);
+    setCurrentNote(null);
   }
 
   return (
@@ -92,8 +92,8 @@ const App = () => {
       // Berikan function addNote sebagai prop
       addNote={addNote}
       deleteNote={deleteNote}
-      setNoteById={setNoteById}
-      noteById={noteById}
+      setCurrentNote={setCurrentNote}
+      currentNote={currentNote}
       editNote={editNote}
     />
   );

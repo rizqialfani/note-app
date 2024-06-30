@@ -3,16 +3,16 @@ import { View, StyleSheet, Text } from "react-native";
 import CustomButton from "../components/customButton";
 import CustomTextInput from "../components/customTextInput";
 
-const EditNote = ({ setCurrentPage, editNote, noteById }) => {
+const EditNote = ({ setCurrentPage, editNote, currentNote }) => {
   const [title, setTitle] = useState('')
   const [desc, setDesc] = useState('')
   
   useEffect(() => {
-    if (noteById) {
-        setTitle(noteById.title);
-        setDesc(noteById.desc);
+    if (currentNote) {
+        setTitle(currentNote.title);
+        setDesc(currentNote.desc);
     }    
-  }, [noteById]);
+  }, [currentNote]);
 
   return (
     <View style={styles.container}>
@@ -41,7 +41,7 @@ const EditNote = ({ setCurrentPage, editNote, noteById }) => {
           width="100%"
           // Jalankan function editNote dan arahkan kembali layar ke Home
           onPress={() => {
-            editNote(noteById.id, title, desc)
+            editNote(currentNote.id, title, desc)
             setCurrentPage('home')
           }}
         />
