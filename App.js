@@ -67,8 +67,8 @@ const App = () => {
     ]);
   };
 
-  const deleteNote = (setCurrentNote) => {
-    const updatedNote = noteList.filter((note) => note.id !== setCurrentNote);
+  const deleteNote = (id) => {
+    const updatedNote = noteList.filter((note) => note.id !== id);
     setNoteList(updatedNote);
   };
 
