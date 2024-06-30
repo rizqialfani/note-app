@@ -10,6 +10,9 @@ const CurrentPageWidget = ({
   setCurrentPage,
   addNote,
   deleteNote,
+  noteById,
+  setNoteById,
+  editNote,
 }) => {
   switch (currentPage) {
     case 'home':
@@ -18,13 +21,20 @@ const CurrentPageWidget = ({
           noteList={noteList}
           setCurrentPage={setCurrentPage}
           deleteNote={deleteNote}
+          setNoteById={setNoteById}
         />
       );
     case 'add':
       // Berikan function "addNote" ke component "AddNote"
       return <AddNote setCurrentPage={setCurrentPage} addNote={addNote} />
     case 'edit':
-      return <EditNote />
+      return (
+        <EditNote 
+          setCurrentPage={setCurrentPage}
+          noteById={noteById}
+          editNote={editNote}
+        />
+    );
     default:
       return <Home />
   }
@@ -43,6 +53,8 @@ const App = () => {
     },
   ])
 
+  const [noteById, setNoteById] = useState(null);
+
   const addNote = (title, desc) => {
     const id = noteList.length > 0 ? noteList[noteList.length - 1].id + 1 : 1;
     setNoteList([
@@ -60,6 +72,18 @@ const App = () => {
     setNoteList(updatedNote);
   };
 
+  const editNote = (id, title, desc) => {
+    const updatedNote = noteList.map((note) => {
+      if (note.id === id) {
+        return { ...note, title, desc}
+      }
+      return note;
+    });
+
+    setNoteList(updatedNote);
+    setNoteById(null);
+  }
+
   return (
     <CurrentPageWidget
       currentPage={currentPage}
@@ -68,6 +92,9 @@ const App = () => {
       // Berikan function addNote sebagai prop
       addNote={addNote}
       deleteNote={deleteNote}
+      setNoteById={setNoteById}
+      noteById={noteById}
+      editNote={editNote}
     />
   );
 };
